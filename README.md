@@ -10,8 +10,8 @@ GPGBoard is hastily named and coded OSX tool for quickly signing, encrypting,
 decrypting, and verifying signatures of PGP blocks. Primarily, it should be used
 in combination with [GPGTools](https://www.gpgtools.org) for key management. 
 This tool simply provides a GUI method to the four simple tasks that are
-difficult to do within a program that has no GnuPG integration, e.g.
-Sparrow Mail.
+difficult to do within a program that has no GnuPG integration and lackluster
+GPGServices support, e.g. Sparrow Mail.
 
 License
 -------
