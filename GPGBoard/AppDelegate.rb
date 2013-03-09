@@ -12,11 +12,11 @@ class AppDelegate
     
     attr_accessor :input_textarea
     attr_accessor :output_textarea
+    attr_accessor :recipient_text
+    attr_accessor :log_textarea
     
     def applicationDidFinishLaunching(a_notification)
         # Insert code here to initialize your application
-        output_textarea.setEditable false
-        output_textarea.setSelectable true
     end
     
     
@@ -26,10 +26,11 @@ class AppDelegate
     end
     
     def encrypt_text sender
-        output_textarea.setString "encrypt"
         cmd_output = ''
-        Open3.popen3('gpg --encrypt') do |stdin, stdout, stderr|
-            stdin.puts "asdf"
+        recipient = recipient_text.stringValue
+        logg "encrypting for #{recipient}..."
+        Open3.popen3("gpg --armor --encrypt -r #{recipient}") do |stdin, stdout, stderr|
+            stdin.puts input_textarea.stringValue
             stdin.close
             cmd_output = stdout.gets
             stdout.close
@@ -59,6 +60,10 @@ class AppDelegate
             stderr.close
         end
         output_textarea.setString cmd_output
+    end
+    
+    def logg text
+        log_textarea.setString log_textarea.string + "\n" + text
     end
     
 end
