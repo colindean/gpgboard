@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B33604E16EAE0E3009B0C5F /* PopUpButtonWithArray.rb in Resources */ = {isa = PBXBuildFile; fileRef = 3B33604D16EAE0E3009B0C5F /* PopUpButtonWithArray.rb */; };
 		3B7B426516EAAAB800119749 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7B426416EAAAB800119749 /* Cocoa.framework */; };
 		3B7B426716EAAAB800119749 /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7B426616EAAAB800119749 /* MacRuby.framework */; };
 		3B7B427016EAAAB800119749 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B7B426E16EAAAB800119749 /* InfoPlist.strings */; };
@@ -15,6 +14,7 @@
 		3B7B427716EAAAB800119749 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B7B427516EAAAB800119749 /* MainMenu.xib */; };
 		3B7B427A16EAAAB800119749 /* rb_main.rb in Resources */ = {isa = PBXBuildFile; fileRef = 3B7B427916EAAAB800119749 /* rb_main.rb */; };
 		3B7B427C16EAAAB800119749 /* AppDelegate.rb in Resources */ = {isa = PBXBuildFile; fileRef = 3B7B427B16EAAAB800119749 /* AppDelegate.rb */; };
+		3B88837216EAF8D800477EC3 /* PopUpButtonWithArray.rb in Resources */ = {isa = PBXBuildFile; fileRef = 3B88837116EAF8D800477EC3 /* PopUpButtonWithArray.rb */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3B33604D16EAE0E3009B0C5F /* PopUpButtonWithArray.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = PopUpButtonWithArray.rb; path = ../PopUpButtonWithArray.rb; sourceTree = "<group>"; };
 		3B7B426116EAAAB800119749 /* GPGBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPGBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7B426416EAAAB800119749 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3B7B426616EAAAB800119749 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = Library/Frameworks/MacRuby.framework; sourceTree = DEVELOPER_DIR; };
@@ -39,6 +38,7 @@
 		3B7B427616EAAAB800119749 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3B7B427916EAAAB800119749 /* rb_main.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = rb_main.rb; sourceTree = "<group>"; };
 		3B7B427B16EAAAB800119749 /* AppDelegate.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = AppDelegate.rb; sourceTree = "<group>"; };
+		3B88837116EAF8D800477EC3 /* PopUpButtonWithArray.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = PopUpButtonWithArray.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				3B7B427B16EAAAB800119749 /* AppDelegate.rb */,
-				3B33604D16EAE0E3009B0C5F /* PopUpButtonWithArray.rb */,
+				3B88837116EAF8D800477EC3 /* PopUpButtonWithArray.rb */,
 				3B7B427416EAAAB800119749 /* Resources */,
 				3B7B427816EAAAB800119749 /* Other Sources */,
 				3B7B426C16EAAAB800119749 /* Supporting Files */,
@@ -192,7 +192,7 @@
 				3B7B427716EAAAB800119749 /* MainMenu.xib in Resources */,
 				3B7B427A16EAAAB800119749 /* rb_main.rb in Resources */,
 				3B7B427C16EAAAB800119749 /* AppDelegate.rb in Resources */,
-				3B33604E16EAE0E3009B0C5F /* PopUpButtonWithArray.rb in Resources */,
+				3B88837216EAF8D800477EC3 /* PopUpButtonWithArray.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
