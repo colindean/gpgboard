@@ -58,13 +58,13 @@ class AppDelegate
     end
     
     def do_gpg_cmd cmd
-        gpg = "gpg "
+        gpg = "gpg --no-tty "
         cmd_output = ''
         logg "executing [#{cmd}]"
         Open3.popen3(gpg + cmd) do |stdin, stdout, stderr|
             stdin.write input_text
             stdin.close
-            cmd_output = stdout.read_nonblock 2048
+            cmd_output = stdout.read
             stdout.close
             logg stderr.read
             stderr.close
