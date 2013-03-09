@@ -1,7 +1,7 @@
 GPGBoard
 ========
 
-by Colin Dean <cad@cad.cx>
+by Colin Dean <git@cad.cx>
 
 Introduction
 ------------
