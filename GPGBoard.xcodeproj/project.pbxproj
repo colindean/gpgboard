@@ -31,7 +31,7 @@
 /* Begin PBXFileReference section */
 		3B7B426116EAAAB800119749 /* GPGBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPGBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7B426416EAAAB800119749 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		3B7B426616EAAAB800119749 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = Library/Frameworks/MacRuby.framework; sourceTree = DEVELOPER_DIR; };
+		3B7B426616EAAAB800119749 /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 		3B7B426D16EAAAB800119749 /* GPGBoard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GPGBoard-Info.plist"; sourceTree = "<group>"; };
 		3B7B426F16EAAAB800119749 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B7B427116EAAAB800119749 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,7 +64,10 @@
 				3B7B426316EAAAB800119749 /* Frameworks */,
 				3B7B426216EAAAB800119749 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		3B7B426216EAAAB800119749 /* Products */ = {
 			isa = PBXGroup;
