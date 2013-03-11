@@ -18,13 +18,13 @@ class AppDelegate
 
     def applicationDidFinishLaunching(a_notification)
         # Insert code here to initialize your application
-        logg "initialized with:\n #{`gpg --version`}"
-        load_private_keys
         @gpg_path = `which gpg`.chomp
+        logg "initialized #{@gpg_path} with:\n #{`#{@gpg_path} --version`} "
+        load_private_keys
     end
     
     def load_private_keys
-        cmd_output = `gpg --no-tty -K`
+        cmd_output = `#{@gpg_path} --no-tty -K`
         keys = cmd_output.split("\n").select{|l|l.match(/^sec/)}.collect{|m|m.match(/\d{4}\w{1}\/[\d\w]{8}/).to_s.split("/")[1]}
         @privkeys_popup_button = PopUpButtonWithArray.new(privkeys_popup, keys) #to setup the button's options
     end
