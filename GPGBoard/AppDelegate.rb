@@ -15,15 +15,16 @@ class AppDelegate
     attr_accessor :recipient_text
     attr_accessor :log_textarea
     attr_accessor :privkeys_popup
-    
+
     def applicationDidFinishLaunching(a_notification)
         # Insert code here to initialize your application
         logg "initialized with:\n #{`gpg --version`}"
         load_private_keys
+        @gpg_path = `which gpg`.chomp
     end
     
     def load_private_keys
-        cmd_output = `gpg -K`
+        cmd_output = `gpg --no-tty -K`
         keys = cmd_output.split("\n").select{|l|l.match(/^sec/)}.collect{|m|m.match(/\d{4}\w{1}\/[\d\w]{8}/).to_s.split("/")[1]}
         @privkeys_popup_button = PopUpButtonWithArray.new(privkeys_popup, keys) #to setup the button's options
     end
@@ -32,42 +33,84 @@ class AppDelegate
     def sign_text sender
         key = "0x" + @privkeys_popup_button.get_selected
         logg "signing text with key #{key}"
-        cmd_output = do_gpg_cmd("--clearsign --local-user #{key}")
-        output_text cmd_output
+        do_gpg_cmd("--clearsign --local-user #{key}")
     end
     
     def encrypt_text sender
         recipient = recipient_text.stringValue
         logg "encrypting for #{recipient}..."
-        cmd_output = do_gpg_cmd("--armor --encrypt -r #{recipient}")
-        output_text cmd_output
-
+        do_gpg_cmd("--armor --encrypt -r #{recipient}")
     end
     
     def decrypt_text sender
         key = "0x" + @privkeys_popup_button.get_selected
         logg "decrypting text as #{key}"
-        cmd_output = do_gpg_cmd("--decrypt --local-user #{key}")
-        output_text cmd_output
+        do_gpg_cmd("--decrypt --local-user #{key}")
     end
     
     def verify_text sender
         logg "verifying text..."
-        cmd_output = do_gpg_cmd("--verify")
-        output_text cmd_output
+        do_gpg_cmd("--verify")
     end
     
     def do_gpg_cmd cmd
-        gpg = "gpg --no-tty "
+        do_gpg_cmd_nstask cmd
+    end
+
+    def do_gpg_cmd_nstask cmd
+        Dispatch::Queue.concurrent.async do
+            fcmd = "--no-tty " + cmd
+            task = NSTask.alloc.init
+            task.setLaunchPath(@gpg_path)
+            task.setArguments(fcmd.split(" ") << nil)
+
+            task.arguments.each {|a| puts "ARG: [#{a}]" }
+
+            inpipe = NSPipe.pipe
+            outpipe = NSPipe.pipe
+            errpipe = NSPipe.pipe
+
+            task.setStandardOutput(outpipe)
+            task.setStandardInput(inpipe)
+            task.setStandardError(errpipe)
+
+            output = outpipe.fileHandleForReading
+            errput = errpipe.fileHandleForReading
+            input = inpipe.fileHandleForWriting
+
+            task.launch
+
+            input.writeData input_text.dataUsingEncoding(NSUTF8StringEncoding)
+            input.closeFile
+
+            outdata = output.readDataToEndOfFile
+            errdata = errput.readDataToEndOfFile
+            output.closeFile
+            errput.closeFile
+
+            outstring = NSString.alloc.initWithData(outdata, encoding: NSUTF8StringEncoding)
+            errstring = NSString.alloc.initWithData(errdata, encoding: NSUTF8StringEncoding)
+
+            output_text outstring
+            logg errstring
+        end
+    end
+
+    def do_gpg_cmd_ruby cmd
+        gpg = "#{@gpg_path} --no-tty "
         cmd_output = ''
         logg "executing [#{cmd}]"
-        Open3.popen3(gpg + cmd) do |stdin, stdout, stderr|
-            stdin.write input_text
-            stdin.close
-            cmd_output = stdout.read
-            stdout.close
-            logg stderr.read
-            stderr.close
+        Dispatch::Queue.concurrent.async do
+            logg "new thread starting"
+            Open3.popen3(gpg + cmd) do |stdin, stdout, stderr|
+                stdin.write input_text
+                stdin.close
+                cmd_output = stdout.read
+                output_text cmd_output
+                stdout.close
+                logg stderr.read
+                stderr.close
+            end
         end
         return cmd_output
     end
