@@ -62,7 +62,7 @@ class AppDelegate
             fcmd = "--no-tty " + cmd
             task = NSTask.alloc.init
             task.setLaunchPath(@gpg_path)
-            task.setArguments(fcmd.split(" ") << nil)
+            task.setArguments(fcmd.split(" "))
 
             task.arguments.each {|a| puts "ARG: [#{a}]" }
 
@@ -88,8 +88,8 @@ class AppDelegate
             output.closeFile
             errput.closeFile
 
-            outstring = NSString.alloc.initWithData(outdata, encoding: NSUTF8StringEncoding)
-            errstring = NSString.alloc.initWithData(errdata, encoding: NSUTF8StringEncoding)
+            outstring = NSString.alloc.initWithData(outdata, :encoding => NSUTF8StringEncoding)
+            errstring = NSString.alloc.initWithData(errdata, :encoding => NSUTF8StringEncoding)
 
             output_text outstring
             logg errstring
