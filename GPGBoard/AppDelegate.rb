@@ -54,7 +54,7 @@ class AppDelegate
     end
     
     def do_gpg_cmd cmd
-        do_gpg_cmd_nstask cmd
+        do_gpg_cmd_ruby cmd
     end
 
     def do_gpg_cmd_nstask cmd
@@ -104,18 +104,42 @@ class AppDelegate
         gpg = "#{@gpg_path} --no-tty "
         cmd_output = ''
         logg "executing [#{cmd}]"
-        Dispatch::Queue.concurrent.async do
-            logg "new thread starting"
-            Open3.popen3(gpg + cmd) do |stdin, stdout, stderr|
-                stdin.write input_text
-                stdin.close
-                cmd_output = stdout.read
-                output_text cmd_output
-                stdout.close
-                logg stderr.read
-                stderr.close
+        queue = Dispatch::Queue.new("cx.cad.gpgboard")
+
+        logg "new thread starting"
+        Open3.popen3(gpg + cmd) do |stdin, stdout, stderr|
+
+          #logg "Command started as pid #{thread.pid}"
+
+          queue.async do
+            logg "stdin writer thread"
+            #i = 0
+            #until i == input_text.length do
+            #i += stdin.write(input_text[i..input_text.length])
+            stdin.write input_text
+            #end
+            stdin.close
+          end
+
+          queue.async do
+            logg "stdout reader thread"
+            until stdout.eof? do
+              cmd_output += stdout.read
             end
+            output_text cmd_output
+            stdout.close
+          end
+
+          queue.async do
+            logg "stderr reader thread"
+            until stderr.eof? do
+              logg stderr.read
+            end
+            stderr.close
+          end
         end
+
+        logg "outside of popen"
         return cmd_output
     end
     
