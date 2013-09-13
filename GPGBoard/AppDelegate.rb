@@ -83,6 +83,10 @@ class AppDelegate
             input.writeData input_text.dataUsingEncoding(NSUTF8StringEncoding)
             input.closeFile
 
+            sleep 5
+
+            task.terminate
+
             outdata = output.readDataToEndOfFile
             errdata = errput.readDataToEndOfFile
             output.closeFile
